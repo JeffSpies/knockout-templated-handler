@@ -1,0 +1,161 @@
+<html>
+<head>
+    <script src="http://codeorigin.jquery.com/jquery-2.0.3.min.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http:////netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+    <script src="static/knockout.js"></script>
+</head>
+<body>
+
+    <div data-bind="with:current_page">
+        <h2 data-bind="text:$data.title"></h2>
+        <form class="form-horizontal">
+            <div data-bind="foreach:questions">
+                <div class="control-group">
+                    <label class="control-label" data-bind="text:$data.label, attr:{for:$data.id}"></label>
+                    <div class="controls">
+                        <div data-bind='item:$data, attr:{id:$data.id}'></div>
+                    </div>
+                </div>
+            </div>
+            <button data-bind="click:$parent.previous">Previous</button> <button data-bind="click:$parent.next">Next</button>
+        </form>
+    </div>
+<script>
+
+    var form_dat = {
+        pages:[{
+                id: "page1",
+                title: "The Nature of the Effect",
+                questions: [
+                    { type: "textarea",  id: "item1", label: "Verbal description of the effect I am trying to replicate"},
+                    { type: "textarea",  id: "item2", label: "It is important to replicate this effect because"},
+                    { type: "textfield", id: "item3", label: "The effect size of the effect I am trying to replicate is"},
+                    { type: "textfield", id: "item4", label: "The confidence interval of the original effect is"},
+                    { type: "textfield", id: "item5", label: "The sample size of the original effect is"},
+                    { type: "textfield", id: "item6", label: "Where was the original study conducted? (e.g., lab, in the field, online)"},
+                    { type: "textfield", id: "item7", label: "What country/region was the original study conducted in?"},
+                    { type: "textfield", id: "item8", label: "What kind of sample did the original study use? (e.g., student, Mturk, representative)"},
+                    { type: "textfield", id: "item9", label: "Was the original study conducted with paper-and-pencil surveys, on a computer, or something else?"},
+                ]
+            },{
+                id: "page2",
+                title: "Designing the Replication Study",
+                questions: [
+                    { type: "select",    id: "item10", label: "Are the original materials for the study available from the author?", options: ["yes", "no"], caption: "Choose..."},
+                    { type: "textarea",  id: "item11", label: "I know that assumptions (e.g., about the meaning of the stimuli) in the original study will also hold in my replication because"},
+                    { type: "textfield", id: "item12", label: "Location of the experimenter during data collection"},
+                    { type: "textfield", id: "item13", label: "Experimenter knowledge of participant experimental condition"},
+                    { type: "textfield", id: "item14", label: "Experimenter knowledge of overall hypotheses"},
+                    { type: "textfield", id: "item15", label: "My target sample size is"},
+                    { type: "textarea",  id: "item16", label: "The rationale for my sample size is"}
+                ]
+            },{
+                id: "page3",
+                title: "Documenting Differences between the Original and Replication Study",
+                questions: [
+                    { type: "select",   id: "item17", label: "The differences in the instructions are", options: ["Exact", "Close", "Different"], caption: "Choose..."},
+                    { type: "select",   id: "item18", label: "The differences in the measures are", options: ["Exact", "Close", "Different"], caption: "Choose..."},
+                    { type: "select",   id: "item19", label: "The differences in the stimuli are", options: ["Exact", "Close", "Different"], caption: "Choose..."},
+                    { type: "select",   id: "item20", label: "The differences in the procedure are", options: ["Exact", "Close", "Different"], caption: "Choose..."},
+                    { type: "select",   id: "item21", label: "The differences in the location (e.g., lab vs. online; alone vs. in groups) are", options: ["Exact", "Close", "Different"], caption: "Choose..."},
+                    { type: "select",   id: "item22", label: "The difference in remuneration are", options: ["Exact", "Close", "Different"], caption: "Choose..."},
+                    { type: "select",   id: "item23", label: "The differences between participant populations are", options: ["Exact", "Close", "Different"], caption: "Choose..."},
+                    { type: "textarea", id: "item24", label: "What differences between the original study and your study might be expected to influence the size and/or direction of the effect?"},
+                    { type: "textarea", id: "item25", label: "I have taken the following steps to test whether the differences listed in #22 will influence the outcome of my replication attempt"},
+                ]
+            },{
+                id: "page4",
+                title: "Analysis and Replication Evaluation",
+                questions: [
+                    { type: "textarea", id: "item26", label: "My exclusion criteria are (e.g., handling outliers, removing participants from analysis)"},
+                    { type: "textarea", id: "item27", label: "My analysis plan is (justify differences from the original)"},
+                    { type: "textarea", id: "item28", label: "A successful replication is defined as"},
+                ]
+            },{
+                id: "page5",
+                title: "Registering the Replication Attempt",
+                questions: [
+                    { type: "textfield", id: "item29", label: "The finalized materials, procedures, analysis plan etc of the replication are registered here"}
+                ]
+            },{
+                id: "page6",
+                title: "Reporting the Replication",
+                questions: [
+                    { type: "textfield", id: "item30", label: "The effect size of the replication is"},
+                    { type: "textfield", id: "item31", label: "The confidence interval of the replication effect size is"},
+                    { type: "select",    id: "item32", label: "The replication effect size is", options: ["significantly different from the original effect size", "not significantly different from the original effect size"], caption: "Choose..."},
+                    { type: "select",    id: "item33", label: "I judge the replication to be a(n)", options: ["success", "informative failure to replicate", "practical failure to replicate", "inconclusive"], caption: "Choose..."},
+                    { type: "textarea",  id: "item34", label: "I judge it so because"},
+                    { type: "textfield", id: "item35", label: "Interested experts can obtain my data and syntax here"},
+                    { type: "textfield", id: "item36", label: "All of the analyses were reported in the report or are available here"},
+                    { type: "textarea",  id: "item37", label: "The limitations of my replication study are"}
+                ]
+            }
+        ]
+    };
+    // var form_data = ko.utils.parseJson(dat);
+
+    var stringTemplateSource = function (template) {
+        this.template = template;
+    };
+
+    stringTemplateSource.prototype.text = function () {
+        return this.template;
+    };
+
+    var stringTemplateEngine = new ko.nativeTemplateEngine();
+    stringTemplateEngine.makeTemplateSource = function (template) {
+        return new stringTemplateSource(template);
+    };
+
+    var templates = {
+        textarea: '<textarea data-bind="value:value"></textarea>',
+        textfield: '<input type="text" data-bind="value:value" />',
+        select: '<select data-bind="options: options, value: value, optionsCaption: caption"></select>',
+        checkbox: '<input type="checkbox" data-bind="checked:value" />'
+    };
+
+    ko.bindingHandlers.item = {
+        init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            var options = ko.utils.unwrapObservable(valueAccessor());
+            options.value = ko.observable('');
+            ko.renderTemplate(templates[options.type], options, { templateEngine: stringTemplateEngine }, element, 'replaceNode');
+        }
+    };
+
+    function Page(id, title, questions) {
+        this.id = ko.observable(id);
+        this.title = title;
+        this.questions = questions;
+    };
+
+    function ViewModel() {
+        var self = this;
+        self.pages = ko.observableArray();
+        self.current_index = ko.observable(0);
+        self.current_page =  ko.computed(function(){
+           return self.pages()[self.current_index()];
+        });
+        self.previous = function(){
+            self.current_index(self.current_index()-1);
+        };
+        self.next = function(){
+            self.current_index(self.current_index()+1);
+        };
+    };
+
+    view_model = new ViewModel()
+
+    var mapped_pages = ko.utils.arrayMap(form_dat['pages'], function(page) {
+        return new Page(page.id, page.title, page.questions);
+    });
+
+    view_model.pages(mapped_pages);
+
+    ko.applyBindings(view_model);
+
+</script>
+</body>
+</html>
+
